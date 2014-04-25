@@ -1,9 +1,10 @@
 # Vendors
+P = require 'autoresolve'
 $ = require 'jquery'
 Backbone = require 'backbone'
 Backbone.$ = $
 Marionette = require 'backbone.marionette'
-Routes = require './routes/home.coffee'
+Routes = require P 'routes/home.coffee'
 
 # app bootstrap
 app = new Marionette.Application()

@@ -1,7 +1,8 @@
 # Home page layout
+P = require 'autoresolve'
 Marionette = require 'backbone.marionette'
 $ = require 'jquery'
-EditExpView = require '../experience/edit/layout.coffee'
+EditExpView = require P 'experience/edit/layout.coffee'
 
 module.exports = Marionette.Layout.extend
   template: window.templates['src/templates/home/layout']
