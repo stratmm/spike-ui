@@ -17,4 +17,7 @@ curl -L https://github.com/orchardup/fig/releases/download/0.3.2/linux > /usr/lo
 chmod +x /usr/local/bin/fig
 
 apt-get install nodejs -y
+ln -s /usr/bin/nodejs /usr/bin/node
+
 apt-get install npm -y
+npm install -g browserify
