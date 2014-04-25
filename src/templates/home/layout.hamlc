@@ -7,4 +7,3 @@
     %hr
 .row
   .col-md-12#main-body
-    = "Main Body Here"

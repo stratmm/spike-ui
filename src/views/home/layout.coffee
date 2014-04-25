@@ -1,6 +1,7 @@
 # Home page layout
 Marionette = require 'backbone.marionette'
 $ = require 'jquery'
+EditExpView = require '../experience/edit/layout.coffee'
 
 module.exports = Marionette.Layout.extend
   template: window.templates['src/templates/home/layout']
@@ -11,5 +12,8 @@ module.exports = Marionette.Layout.extend
     console.log("App.Views.Home.Layout::initialize")
 
   regions:
-    'main': '#main'
+    'main': '#main-body'
 
+  onRender: ->
+    view = new EditExpView
+    @main.show(view)
