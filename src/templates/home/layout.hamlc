@@ -1,0 +1,10 @@
+.row
+  .col-md-12#banner
+    %h1
+      = "Not On The High Street"
+      %small
+        Spike UI
+    %hr
+.row
+  .col-md-12#main-body
+    = "Main Body Here"

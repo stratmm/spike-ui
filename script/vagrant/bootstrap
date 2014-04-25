@@ -21,3 +21,7 @@ ln -s /usr/bin/nodejs /usr/bin/node
 
 apt-get install npm -y
 npm install -g browserify
+npm install -g grunt-cli
+npm install -g bower
+npm -g install coffee-script
+npm -g install haml-coffee
