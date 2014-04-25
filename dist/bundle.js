@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var $, Backbone, Marionette, app;
+var $, Backbone, Marionette, Routes, app;
 
 $ = require('jquery');
 
@@ -9,16 +9,43 @@ Backbone.$ = $;
 
 Marionette = require('backbone.marionette');
 
+Routes = require('./app/routes/home.coffee');
+
 app = new Marionette.Application();
 
-app.start();
+app.addInitializer(function(options) {
+  var appRouter;
+  appRouter = new Routes;
+  return Backbone.history.start({
+    pushState: true
+  });
+});
 
-Backbone.history.start();
+app.start();
 
 module.exports = app;
 
 
-},{"backbone":6,"backbone.marionette":2,"jquery":8}],2:[function(require,module,exports){
+},{"./app/routes/home.coffee":2,"backbone":7,"backbone.marionette":3,"jquery":9}],2:[function(require,module,exports){
+var Marionette;
+
+Marionette = require('backbone.marionette');
+
+module.exports = Marionette.AppRouter.extend({
+  initialize: function() {
+    return console.log("App.Routes.Home::initialize");
+  },
+  routes: {
+    "": "homeShow"
+  },
+  homeShow: function() {
+    console.log("App.Routes.Home::homeShow");
+    return console.log("Would have shown home");
+  }
+});
+
+
+},{"backbone.marionette":3}],3:[function(require,module,exports){
 // MarionetteJS (Backbone.Marionette)
 // ----------------------------------
 // v1.8.3
@@ -2494,7 +2521,7 @@ module.exports = app;
 
 }));
 
-},{"backbone":6,"backbone.babysitter":3,"backbone.wreqr":4,"underscore":5}],3:[function(require,module,exports){
+},{"backbone":7,"backbone.babysitter":4,"backbone.wreqr":5,"underscore":6}],4:[function(require,module,exports){
 // Backbone.BabySitter
 // -------------------
 // v0.1.0
@@ -2676,7 +2703,7 @@ Backbone.ChildViewContainer = (function(Backbone, _){
 }));
 
 
-},{"backbone":6,"underscore":5}],4:[function(require,module,exports){
+},{"backbone":7,"underscore":6}],5:[function(require,module,exports){
 (function (root, factory) {
   if (typeof exports === 'object') {
 
@@ -3104,7 +3131,7 @@ Wreqr.radio = (function(Wreqr){
 }));
 
 
-},{"backbone":6,"underscore":5}],5:[function(require,module,exports){
+},{"backbone":7,"underscore":6}],6:[function(require,module,exports){
 //     Underscore.js 1.6.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -4449,7 +4476,7 @@ Wreqr.radio = (function(Wreqr){
   }
 }).call(this);
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 //     Backbone.js 1.1.2
 
 //     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -6059,9 +6086,9 @@ Wreqr.radio = (function(Wreqr){
 
 }));
 
-},{"underscore":7}],7:[function(require,module,exports){
-module.exports=require(5)
-},{}],8:[function(require,module,exports){
+},{"underscore":8}],8:[function(require,module,exports){
+module.exports=require(6)
+},{}],9:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.0
  * http://jquery.com/
