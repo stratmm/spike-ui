@@ -1,7 +1,6 @@
 # Home Page Router
-P = require 'autoresolve'
 Marionette = require 'backbone.marionette'
-ViewHome = require P 'views/home/layout.coffee'
+ViewHome = require '../views/home/layout.coffee'
 
 module.exports = Marionette.AppRouter.extend
 
