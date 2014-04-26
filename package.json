@@ -16,16 +16,16 @@
     ]
   },
   "browser": {
-      "bootstrap": "./src/lib/vendor/js/bootstrap.js",
-      "jQuery": "jquery"
+    "bootstrap": "./src/lib/vendor/js/bootstrap.js",
+    "jQuery": "jquery"
   },
   "browserify-shim": {
-      "bootstrap": "bootstrap"
+    "bootstrap": "bootstrap"
   },
   "browserify": {
-      "transform": [
-          "browserify-shim"
-      ]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "devDependencies": {
     "jquery": "~2.1.0",
@@ -41,6 +41,7 @@
     "grunt-contrib-uglify": "^0.4.0",
     "grunt-targethtml": "^0.2.6",
     "browserify-shim": "~3.2.0",
-    "grunt-contrib-copy": "~0.5.0"
+    "grunt-contrib-copy": "~0.5.0",
+    "lessify": "~0.4.0"
   }
 }
