@@ -24,7 +24,8 @@
   },
   "browserify": {
     "transform": [
-      "browserify-shim"
+      "browserify-shim",
+      "lessify"
     ]
   },
   "devDependencies": {

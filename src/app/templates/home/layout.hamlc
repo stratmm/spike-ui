@@ -1,6 +1,7 @@
 .row
   .col-md-12#banner
     %h1
+      %span.glyphicon.glyphicon-bookmark{:tooltip => "tooltip", :title => "Testing that Glyphicon font includes are working", :data-placement => "right"}
       %span{:tooltip => "tooltip", :title => "This is a tooltip to test boostrap.js integration", :data-placement => "right"}
         = "Not On The High Street"
       %small

@@ -4,6 +4,7 @@ Backbone = require 'backbone'
 Backbone.$ = $
 Marionette = require 'backbone.marionette'
 Routes = require './app/routes/home.coffee'
+Styles = require "./app/stylesheets/app.less"
 
 # app bootstrap
 app = new Marionette.Application()

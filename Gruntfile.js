@@ -9,7 +9,10 @@ module.exports = function (grunt) {
           main: {
             files: [
               // include bootstrap.js
-              {expand: false, src: ['bower_components/bootstrap/dist/js/bootstrap.js'], dest: 'src/lib/vendor/js/bootstrap.js', filter: 'isFile'}
+              {expand: false, src: ['bower_components/bootstrap/dist/js/bootstrap.js'], dest: 'src/lib/vendor/js/bootstrap.js', filter: 'isFile'},
+              {expand: true, flatten: true, src: ['bower_components/bootstrap/less/**'], dest: 'src/lib/vendor/bootstrap/less/', filter: 'isFile'},
+              {expand: true, flatten: true, src: ['bower_components/bootstrap/fonts/**'], dest: 'src/lib/vendor/bootstrap/fonts/', filter: 'isFile'},
+              {expand: true, flatten: true, src: ['bower_components/bootstrap/fonts/**'], dest: 'dist/fonts/', filter: 'isFile'}
             ]
           }
         },
@@ -49,11 +52,11 @@ module.exports = function (grunt) {
         targethtml: {
             dev: {
                 src: 'src/index.html',
-                dest: 'index.html'
+                dest: 'dist/index.html'
             },
             prod: {
                 src: 'src/index.html',
-                dest: 'index.html'
+                dest: 'dist/index.html'
             }
         },
 
@@ -86,7 +89,9 @@ module.exports = function (grunt) {
         connect: {
             server: {
                 options: {
-                    hostname: '33.33.33.10',
+                    hostname: '0.0.0.0',
+                    port:8000,
+                    base: "./dist",
                     open: true,
                     useAvailablePort: true,
                     livereload: true
