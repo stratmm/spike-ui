@@ -1,6 +1,7 @@
 Marionette = require 'backbone.marionette'
 $ = require 'jquery'
 
+
 module.exports = Marionette.ItemView.extend
   template: window.templates['src/app/templates/products/list/controls']
 

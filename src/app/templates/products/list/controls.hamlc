@@ -7,7 +7,7 @@
       %span.icon-bar
     %a.navbar-brand{:href => '/'}= "Products"
 
-  .collapse.navbar-collapse#orders-layout-controls
+  .collapse.navbar-collapse#products-layout-controls
     %form.navbar-form.navbar-left{:role => "search"}
       .form-group
         %input.form-control#search-text{:type => "text", :placeholder => "Search", :value => "#{@search_text}"}
