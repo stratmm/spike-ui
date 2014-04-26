@@ -8,4 +8,5 @@
         Spike UI
     %hr
 .row
-  .col-md-12#main-body
+  .col-md-5#list
+  .col-md-7#main-body

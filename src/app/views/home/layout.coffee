@@ -1,9 +1,11 @@
 # Home page layout
 Marionette = require 'backbone.marionette'
 $ = require 'jquery'
-EditExpView = require '../experience/edit/layout.coffee'
+ProductEditView = require '../products/edit/layout.coffee'
+ProductListView = require '../products/list/layout.coffee'
 window.jQuery = require 'jquery'
 Bootstrap = require 'bootstrap'
+Products = require '../../collections/products.coffee'
 
 module.exports = Marionette.Layout.extend
   template: window.templates['src/app/templates/home/layout']
@@ -11,17 +13,17 @@ module.exports = Marionette.Layout.extend
   className: "col-md-12 home-page-col"
 
   initialize: ->
-    console.log("App.Views.Home.Layout::initialize")
+    console.log("views/home/layout.coffee::initialize")
 
   regions:
     'main': '#main-body'
+    'list': "#list"
 
   events:
     'mouseenter [tooltip]' : 'showTooltip'
     'mouseleave [tooltip]' : 'hideTooltip'
 
   showTooltip: (event) ->
-    #console.log("App.Views.StaticPages.Home::showTooltip")
     $('[tooltip]').each((i,el) ->
       try
         $(el).tooltip()
@@ -33,12 +35,15 @@ module.exports = Marionette.Layout.extend
     catch error
 
   hideTooltip: (event) ->
-    #console.log("App.Views.StaticPages.Home::hideTooltip")
     try
       $(event.target).tooltip('hide')
     catch error
 
   onRender: ->
-    view = new EditExpView
-    @main.show(view)
+    edit_view = new ProductEditView
+    @main.show(edit_view)
+    products = new Products
+    products.fetch()
+    list_view = new ProductListView(collection: products)
+    @list.show(list_view)
 
