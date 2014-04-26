@@ -3,7 +3,7 @@ $ = require 'jquery'
 Backbone = require 'backbone'
 Backbone.$ = $
 Marionette = require 'backbone.marionette'
-Routes = require './routes/home.coffee'
+Routes = require './app/routes/home.coffee'
 
 # app bootstrap
 app = new Marionette.Application()

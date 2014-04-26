@@ -1,10 +1,18 @@
 module.exports = function (grunt) {
 
-    var vendors = 'jquery backbone backbone.marionette'.split(' ');
+    var vendors = 'jquery backbone backbone.marionette bootstrap'.split(' ');
     spawn = require('child_process').spawn;
 
     grunt.initConfig({
 
+        copy: {
+          main: {
+            files: [
+              // include bootstrap.js
+              {expand: false, src: ['bower_components/bootstrap/dist/js/bootstrap.js'], dest: 'src/lib/vendor/js/bootstrap.js', filter: 'isFile'}
+            ]
+          }
+        },
         browserify: {
             // just the app
             app: {
@@ -99,11 +107,11 @@ module.exports = function (grunt) {
     grunt.registerTask('template-compile', function(){
 
         // Compile the *.hamlc-template to a single templates.js-file
-        spawn('haml-coffee', ['-i','src/templates', '-o', 'dist/templates.js', '-n', 'window.templates']);
+        spawn('haml-coffee', ['-i','src/app/templates', '-o', 'dist/templates.js', '-n', 'window.templates']);
 
     });
 
-    grunt.registerTask('builddev', ['browserify:app', 'browserify:vendors', 'targethtml:dev', 'template-compile']);
+    grunt.registerTask('builddev', ['copy', 'browserify:app', 'browserify:vendors', 'targethtml:dev', 'template-compile']);
     grunt.registerTask('buildprod', ['browserify:bundle', 'uglify', 'targethtml:prod']);
     grunt.registerTask('run',   ['builddev', 'connect', 'watch']);
 

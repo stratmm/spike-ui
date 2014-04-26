@@ -3,7 +3,7 @@
     window.templates = {};
   }
 
-  window.templates['src/templates/experience/edit/layout'] = function(context) {
+  window.templates['src/app/templates/experience/edit/layout'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = function(text, escape) {
@@ -35,7 +35,7 @@
     window.templates = {};
   }
 
-  window.templates['src/templates/home/layout'] = function(context) {
+  window.templates['src/app/templates/home/layout'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = function(text, escape) {
@@ -54,9 +54,9 @@
         }
       };
       $o = [];
-      $o.push("<div class='row'>\n  <div class='col-md-12' id='banner'>\n    <h1>");
-      $o.push("      " + $e($c("Not On The High Street")));
-      $o.push("      <small>\n        Spike UI\n      </small>\n    </h1>\n    <hr>\n  </div>\n</div>\n<div class='row'>\n  <div class='col-md-12' id='main-body'></div>\n</div>");
+      $o.push("<div class='row'>\n  <div class='col-md-12' id='banner'>\n    <h1>\n      <span tooltip='tooltip' title='This is a tooltip to test boostrap.js integration' data-placement='right'>");
+      $o.push("        " + $e($c("Not On The High Street")));
+      $o.push("      </span>\n      <small>\n        Spike UI\n      </small>\n    </h1>\n    <hr>\n  </div>\n</div>\n<div class='row'>\n  <div class='col-md-12' id='main-body'></div>\n</div>");
       return $o.join("\n").replace(/\s([\w-]+)='true'/mg, ' $1').replace(/\s([\w-]+)='false'/mg, '').replace(/\s(?:id|class)=(['"])(\1)/mg, "");
     }).call(context);
   };
