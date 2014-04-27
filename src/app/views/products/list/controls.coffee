@@ -3,7 +3,7 @@ $ = require 'jquery'
 
 
 module.exports = Marionette.ItemView.extend
-  template: window.templates['src/app/templates/products/list/controls']
+  template: window.templates['src/app/views/products/list/controls']
 
   className: "products-list-controls"
 

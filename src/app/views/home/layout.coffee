@@ -8,7 +8,7 @@ Bootstrap = require 'bootstrap'
 Products = require '../../collections/products.coffee'
 
 module.exports = Marionette.Layout.extend
-  template: window.templates['src/app/templates/home/layout']
+  template: window.templates['src/app/views/home/layout']
 
   className: "col-md-12 home-page-col"
 

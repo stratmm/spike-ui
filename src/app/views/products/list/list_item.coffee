@@ -2,7 +2,7 @@ Marionette = require 'backbone.marionette'
 $ = require 'jquery'
 
 module.exports = Marionette.ItemView.extend
-  template: window.templates['src/app/templates/products/list/list_item']
+  template: window.templates['src/app/views/products/list/list_item']
 
   className: "products-list-list-item"
 

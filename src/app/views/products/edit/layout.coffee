@@ -4,7 +4,7 @@ $ = require 'jquery'
 
 
 module.exports = Marionette.Layout.extend
-  template: window.templates['src/app/templates/products/edit/layout']
+  template: window.templates['src/app/views/products/edit/layout']
 
   className: "flow-layout"
 

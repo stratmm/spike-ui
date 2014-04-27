@@ -3,7 +3,7 @@ $ = require 'jquery'
 ListItemView = require './list_item.coffee'
 
 module.exports = Marionette.CompositeView.extend
-  template: window.templates['src/app/templates/products/list/list']
+  template: window.templates['src/app/views/products/list/list']
 
   className: "products-list-list"
 

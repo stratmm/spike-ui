@@ -4,7 +4,7 @@ ControlsView = require './controls.coffee'
 ListView = require './list.coffee'
 
 module.exports = Marionette.Layout.extend
-  template: window.templates['src/app/templates/products/list/layout']
+  template: window.templates['src/app/views/products/list/layout']
 
   className: "products-list-layout"
 

@@ -3,7 +3,7 @@
     window.templates = {};
   }
 
-  window.templates['src/app/templates/home/layout'] = function(context) {
+  window.templates['src/app/views/home/layout'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = function(text, escape) {
@@ -35,7 +35,7 @@
     window.templates = {};
   }
 
-  window.templates['src/app/templates/products/edit/layout'] = function(context) {
+  window.templates['src/app/views/products/edit/layout'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = function(text, escape) {
@@ -67,7 +67,7 @@
     window.templates = {};
   }
 
-  window.templates['src/app/templates/products/list/controls'] = function(context) {
+  window.templates['src/app/views/products/list/controls'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = function(text, escape) {
@@ -99,7 +99,7 @@
     window.templates = {};
   }
 
-  window.templates['src/app/templates/products/list/layout'] = function(context) {
+  window.templates['src/app/views/products/list/layout'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = function(text, escape) {
@@ -133,7 +133,7 @@
     window.templates = {};
   }
 
-  window.templates['src/app/templates/products/list/list'] = function(context) {
+  window.templates['src/app/views/products/list/list'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = function(text, escape) {
@@ -163,7 +163,7 @@
     window.templates = {};
   }
 
-  window.templates['src/app/templates/products/list/list_item'] = function(context) {
+  window.templates['src/app/views/products/list/list_item'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = function(text, escape) {

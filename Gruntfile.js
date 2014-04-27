@@ -112,7 +112,7 @@ module.exports = function (grunt) {
     grunt.registerTask('template-compile', function(){
 
         // Compile the *.hamlc-template to a single templates.js-file
-        spawn('haml-coffee', ['-i','src/app/templates', '-o', 'dist/templates.js', '-n', 'window.templates']);
+        spawn('haml-coffee', ['-i','src/app', '-o', 'dist/templates.js', '-n', 'window.templates']);
 
     });
 
