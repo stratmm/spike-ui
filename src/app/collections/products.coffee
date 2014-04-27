@@ -1,6 +1,6 @@
   Backbone = require 'backbone'
-  Backbone.IndexedDB = require 'backbone-indexeddb'
-  Database = require '../database/indexdb.coffee'
+  Backbone.IndexedDB = require 'backbone_indexeddb'
+  window.Database = require '../database/indexdb.coffee'
   Model = require '../models/product.coffee'
 
 
@@ -8,9 +8,7 @@
 
     storeName: 'products'
 
-    database: Database
-
-    url: "/"
+    database: window.Database
 
     model: Model
 

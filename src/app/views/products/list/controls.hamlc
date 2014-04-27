@@ -14,7 +14,7 @@
       %button.btn.btn-default#search-button{:type => 'button', :title => "Free text search", :tooltip => 'tooltip'}
         %span.glyphicon.glyphicon-search
       .btn-group
-        %button.btn.btn-default#add{:type => 'button'}
+        %button.btn.btn-default#add{:type => 'button', , :title => "Add a new product", :tooltip => 'tooltip'}
           %span.glyphicon.glyphicon-plus
           = " Add"
 

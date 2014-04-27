@@ -1,3 +1,6 @@
+/*
+  Patched version of this adapter to work with Browserify
+*/
 (function () { /*global _: false, Backbone: false */
     // Generate four random hex digits.
     function S4() {
@@ -9,11 +12,8 @@
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
 
-    if(typeof exports !== 'undefined'){
-        _ = require('underscore');
-        Backbone = require('backbone');
-    }
-
+    var Backbone = require('backbone')
+    var _ = require('underscore')
 
      // Naming is a mess!
      var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB ;
@@ -40,8 +40,9 @@
         this.dbRequest      = indexedDB.open(this.schema.id,lastMigrationPathVersion); //schema version need to be an unsigned long
 
         this.launchMigrationPath = function(dbVersion) {
+            var transaction = this.dbRequest.transaction || versionRequest.result;
             var clonedMigrations = _.clone(schema.migrations);
-            this.migrate(clonedMigrations, dbVersion, {
+            this.migrate(transaction, clonedMigrations, dbVersion, {
                 success: function () {
                     this.ready();
                 }.bind(this),
@@ -127,14 +128,8 @@
         },
 
         // Performs all the migrations to reach the right version of the database.
-        migrate: function (migrations, version, options) {
-            if (!this.nolog) debugLog("Starting migrations from " + version);
-            this._migrate_next(migrations, version, options);
-        },
-
-        // Performs the next migrations. This method is private and should probably not be called.
-        _migrate_next: function (migrations, version, options) {
-            if (!this.nolog) debugLog("_migrate_next begin version from #" + version);
+        migrate: function (transaction, migrations, version, options) {
+            if (!this.nolog) debugLog("migrate begin version from #" + version);
             var that = this;
             var migration = migrations.shift();
             if (migration) {
@@ -151,22 +146,19 @@
                         };
                     }
                     // First, let's run the before script
-                    if (!this.nolog) debugLog("_migrate_next begin before version #" + migration.version);
+                    if (!this.nolog) debugLog("migrate begin before version #" + migration.version);
                     migration.before(function () {
-                        if (!this.nolog) debugLog("_migrate_next done before version #" + migration.version);
+                        if (!this.nolog) debugLog("migrate done before version #" + migration.version);
 
                         var continueMigration = function (e) {
-                            if (!this.nolog) debugLog("_migrate_next continueMigration version #" + migration.version);
-
-                            var transaction = this.dbRequest.transaction || versionRequest.result;
-                            if (!this.nolog) debugLog("_migrate_next begin migrate version #" + migration.version);
+                            if (!this.nolog) debugLog("migrate begin migrate version #" + migration.version);
 
                             migration.migrate(transaction, function () {
-                                if (!this.nolog) debugLog("_migrate_next done migrate version #" + migration.version);
+                                if (!this.nolog) debugLog("migrate done migrate version #" + migration.version);
                                 // Migration successfully appliedn let's go to the next one!
-                                if (!this.nolog) debugLog("_migrate_next begin after version #" + migration.version);
+                                if (!this.nolog) debugLog("migrate begin after version #" + migration.version);
                                 migration.after(function () {
-                                    if (!this.nolog) debugLog("_migrate_next done after version #" + migration.version);
+                                    if (!this.nolog) debugLog("migrate done after version #" + migration.version);
                                     if (!this.nolog) debugLog("Migrated to " + migration.version);
 
                                     //last modification occurred, need finish
@@ -177,9 +169,9 @@
                                             options.success();
                                         }
                                         else{*/
-                                            if (!this.nolog) debugLog("_migrate_next setting transaction.oncomplete to finish  version #" + migration.version);
+                                            if (!this.nolog) debugLog("migrate setting transaction.oncomplete to finish  version #" + migration.version);
                                             transaction.oncomplete = function() {
-                                                if (!that.nolog) debugLog("_migrate_next done transaction.oncomplete version #" + migration.version);
+                                                if (!that.nolog) debugLog("migrate done transaction.oncomplete version #" + migration.version);
 
                                                 if (!that.nolog) debugLog("Done migrating");
                                                 // No more migration
@@ -189,11 +181,8 @@
                                     }
                                     else
                                     {
-                                        if (!this.nolog) debugLog("_migrate_next setting transaction.oncomplete to recursive _migrate_next  version #" + migration.version);
-                                        transaction.oncomplete = function() {
-                                           if (!this.nolog) debugLog("_migrate_next end from version #" + version + " to " + migration.version);
-                                           that._migrate_next(migrations, version, options);
-                                       }
+                                        if (!this.nolog) debugLog("migrate end from version #" + version + " to " + migration.version);
+                                            that.migrate(transaction, migrations, version, options);
                                     }
 
                                 }.bind(this));
@@ -201,7 +190,7 @@
                         }.bind(this);
 
                         if(!this.supportOnUpgradeNeeded){
-                            if (!this.nolog) debugLog("_migrate_next begin setVersion version #" + migration.version);
+                            if (!this.nolog) debugLog("migrate begin setVersion version #" + migration.version);
                             var versionRequest = this.db.setVersion(migration.version);
                             versionRequest.onsuccess = continueMigration;
                             versionRequest.onerror = options.error;
@@ -214,7 +203,7 @@
                 } else {
                     // No need to apply this migration
                     if (!this.nolog) debugLog("Skipping migration " + migration.version);
-                    this._migrate_next(migrations, version, options);
+                    this.migrate(transaction, migrations, version, options);
                 }
             }
         },
@@ -257,8 +246,7 @@
             var json = object.toJSON();
             var writeRequest;
 
-            if (json.id === undefined) json.id = guid();
-            if (json.id === null) delete json.id;
+            if (json.id === undefined && !store.autoIncrement) json.id = guid();
 
             writeTransaction.onerror = function (e) {
                 options.error(e);
@@ -308,12 +296,31 @@
             var getRequest = null;
             if (json.id) {
                 getRequest = store.get(json.id);
+            } else if(options.index) {
+                var index = store.index(options.index.name);
+                getRequest = index.get(options.index.value);
             } else {
                 // We need to find which index we have
+                var cardinality = 0; // try to fit the index with most matches
                 _.each(store.indexNames, function (key, index) {
                     index = store.index(key);
-                    if (json[index.keyPath] && !getRequest) {
-                        getRequest = index.get(json[index.keyPath]);
+                    if(typeof index.keyPath === 'string' && 1 > cardinality) {
+                        // simple index
+                        if (json[index.keyPath] !== undefined) {
+                            getRequest = index.get(json[index.keyPath]);
+                            cardinality = 1;
+                        }
+                    } else if(typeof index.keyPath === 'object' && index.keyPath.length > cardinality) {
+                        // compound index
+                        var valid = true;
+                        var keyValue = _.map(index.keyPath, function(keyPart) {
+                            valid = valid && json[keyPart] !== undefined;
+                            return json[keyPart];
+                        });
+                        if(valid) {
+                            getRequest = index.get(keyValue);
+                            cardinality = index.keyPath.length;
+                        }
                     }
                 });
             }
@@ -506,13 +513,14 @@
             _.each(this.stack, function (message) {
                 this.execute(message);
             }.bind(this));
+            this.stack = [];    // fix memory leak
             this.next();
         },
 
         // Executes a given command on the driver. If not started, just stacks up one more element.
         execute: function (message) {
             if (this.started) {
-                this.driver.execute(message[1].storeName, message[0], message[1], message[2]); // Upon messages, we execute the query
+                this.driver.execute(message[2].storeName || message[1].storeName, message[0], message[1], message[2]); // Upon messages, we execute the query
             } else {
                 this.stack.push(message);
             }
@@ -541,6 +549,11 @@
             return;
         }
 
+        // If a model or a collection does not define a database, fall back on ajaxSync
+        if (typeof object.database === 'undefined' && typeof Backbone.ajaxSync === 'function'){
+            return Backbone.ajaxSync(method, object, options);
+        }
+
         var schema = object.database;
         if (Databases[schema.id]) {
             if(Databases[schema.id].version != _.last(schema.migrations).version){
@@ -550,30 +563,30 @@
         }
 
         var promise;
-        var noop = function() {};
 
-        if (typeof($) != 'undefined' && $.Deferred) {
-            var dfd = $.Deferred();
+        if (typeof Backbone.$ === 'undefined' || typeof Backbone.$.Deferred === 'undefined') {
+            var noop = function() {};
+            var resolve = noop;
+            var reject = noop;
+        } else {
+            var dfd = Backbone.$.Deferred();
             var resolve = dfd.resolve;
             var reject = dfd.reject;
 
             promise = dfd.promise();
-        } else {
-            var resolve = noop;
-            var reject = noop;
         }
 
         var success = options.success;
         options.success = function(resp) {
+            if (success) success(resp);
             resolve();
-            if (success) success(object, resp, options);
             object.trigger('sync', object, resp, options);
         };
 
         var error = options.error;
         options.error = function(resp) {
+            if (error) error(resp);
             reject();
-            if (error) error(object, resp, options);
             object.trigger('error', object, resp, options);
         };
 
@@ -587,17 +600,12 @@
             next();
         }
 
-    	return promise;
+      return promise;
     };
 
-    if(typeof exports == 'undefined'){
-        Backbone.ajaxSync = Backbone.sync;
-        Backbone.sync = sync;
-    }
-    else {
-        exports.sync = sync;
-        exports.debugLog = debugLog;
-    }
+
+    Backbone.ajaxSync = Backbone.sync;
+    Backbone.sync = sync;
 
     //window.addEventListener("unload",function(){Backbone.sync("closeall")})
 })();
