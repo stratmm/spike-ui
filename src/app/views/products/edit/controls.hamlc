@@ -1,0 +1,30 @@
+%nav.navbar.navbar-default{:role => "navigation"}
+  .navbar-header
+    %button.navbar-toggle{:type => "button", :data-toggle => "collapse", :data-target => "#products-layout-controls"}
+      %span.sr-only= "Toggle controls"
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    %a.navbar-brand{:href => '/'}
+      - if @model.isNew()
+        = "Create"
+      - else
+        = "Edit "
+      = " Product"
+
+  .collapse.navbar-collapse#products-layout-controls
+    %form.navbar-form.navbar-right{:role => "controls"}
+      .btn-group
+        %button.btn.btn-default#cancel{:type => 'button', , :title => "Cancel changes", :tooltip => 'tooltip'}
+          %span.glyphicon.glyphicon-remove
+          = " Cancel"
+      .btn-group
+        %button.btn.btn-primary#save{:type => 'button', , :title => "Save changes", :tooltip => 'tooltip'}
+          %span.glyphicon.glyphicon-ok
+          = " Save"
+      .btn-group
+        %button.btn.btn-danger#delete{:type => 'button', , :title => "Delete", :tooltip => 'tooltip'}
+          %span.glyphicon.glyphicon-trash
+          = " Delete"
+
+

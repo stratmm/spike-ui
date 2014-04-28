@@ -1,6 +1,7 @@
 # Home Page Router
 Marionette = require 'backbone.marionette'
 ViewHome = require '../views/home/layout.coffee'
+DaysToShip = require '../models/days_to_ship.coffee'
 
 module.exports = Marionette.AppRouter.extend
 
@@ -13,6 +14,7 @@ module.exports = Marionette.AppRouter.extend
 
   routes:
     "": "homeShow"
+    "factory": "runFactory"
 
 
   homeShow: ->
@@ -21,5 +23,9 @@ module.exports = Marionette.AppRouter.extend
     view = new ViewHome
     @regions.home.show(view)
 
-
+  runFactory: ->
+    new DaysToShip(title: "up to 2 Days", days: 2).save()
+    new DaysToShip(title: "up to 4 Days", days: 4).save()
+    new DaysToShip(title: "up to a week", days: 7).save()
+    new DaysToShip(title: "up to two weeks", days: 14).save()
 

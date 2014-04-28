@@ -1,0 +1,8 @@
+%form
+  .form-group
+    %label
+      = "How long does it take for you to ship?"
+    %select.form-control#days_to_ship{:data-model-attribute => "days_to_ship_id"}
+      - for days in @days_to_ship_records.models
+        %option.days_to_ship_option{:value => "#{days.get('id')}" }
+          = days.get('title')

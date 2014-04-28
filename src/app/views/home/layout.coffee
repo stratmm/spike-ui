@@ -1,11 +1,20 @@
 # Home page layout
 Marionette = require 'backbone.marionette'
 $ = require 'jquery'
+jQuery = require 'jquery'
 ProductEditView = require '../products/edit/layout.coffee'
 ProductListView = require '../products/list/layout.coffee'
 window.jQuery = require 'jquery'
 Bootstrap = require 'bootstrap'
 Products = require '../../collections/products.coffee'
+Commands = require "../../requires/commands.coffee"
+
+Pnotify = require 'jquery_pnotify'
+
+# Set up notifications
+$.pnotify.defaults.history = false
+$.pnotify.defaults.styling = "bootstrap"
+
 
 module.exports = Marionette.Layout.extend
   template: window.templates['src/app/views/home/layout']
@@ -14,6 +23,7 @@ module.exports = Marionette.Layout.extend
 
   initialize: ->
     console.log("views/home/layout.coffee::initialize")
+    @setCommandHandlers()
 
   regions:
     'main': '#main-body'
@@ -40,10 +50,18 @@ module.exports = Marionette.Layout.extend
     catch error
 
   onRender: ->
-    edit_view = new ProductEditView
-    @main.show(edit_view)
+    # show the product list view
     products = new Products
     products.fetch()
     list_view = new ProductListView(collection: products)
     @list.show(list_view)
+
+  # Set up command handlers
+  setCommandHandlers: ->
+    Commands.setHandler("src/app/views/home/layout/edit_product", (product) =>
+      edit_view = new ProductEditView(model: product)
+      @main.show(edit_view)
+    )
+
+
 

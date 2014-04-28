@@ -1,0 +1,16 @@
+%ul.nav.nav-tabs
+  %li.active{:data-tab-name => "about"}
+    %a
+      = "About your product"
+  %li{:data-tab-name => "delivery"}
+    %a
+      = "Delivery"
+  %li{:data-tab-name => "details"}
+    %a
+      = "Details"
+  %li{:data-tab-name => "need_to_know"}
+    %a
+      = "Need to know"
+  %li{:data-tab-name => "preview"}
+    %a
+      = "Preview"

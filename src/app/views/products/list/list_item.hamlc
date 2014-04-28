@@ -1,2 +1,2 @@
-%td=@model.get('title')
-%td=@model.get('price')
+%td.edit_link=@model.get('title')
+%td.edit_link=@model.get('price')

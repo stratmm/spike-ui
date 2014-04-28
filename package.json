@@ -18,10 +18,12 @@
   "browser": {
     "bootstrap": "./src/lib/vendor/js/bootstrap.js",
     "backbone_indexeddb": "./src/lib/vendor/js/backbone-indexeddb.js",
-    "jQuery": "jquery"
+    "jQuery": "jquery",
+    "jquery_pnotify": "./src/lib/vendor/js/jquery.pnotify.js"
   },
   "browserify-shim": {
     "bootstrap": "bootstrap",
+    "jquery_pnotify": "jquery_pnotify",
     "backbone_indexeddb": {
       "exports": "backbone_indexeddb"
     }
@@ -48,6 +50,7 @@
     "browserify-shim": "~3.2.0",
     "grunt-contrib-copy": "~0.5.0",
     "lessify": "~0.4.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "backbone.wreqr": "~1.2.1"
   }
 }

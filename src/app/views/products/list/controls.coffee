@@ -1,6 +1,7 @@
 Marionette = require 'backbone.marionette'
 $ = require 'jquery'
 Product = require '../../../models/product.coffee'
+Commands = require "../../../requires/commands.coffee"
 
 module.exports = Marionette.ItemView.extend
   template: window.templates['src/app/views/products/list/controls']
@@ -23,6 +24,6 @@ module.exports = Marionette.ItemView.extend
   AddProduct: (event) ->
     console.log("views/products/list/controls::AddProduct")
     event.stopPropagation()
-    product = new Product(title: "Test Title", price: 10.50)
-    @collection.add(product)
-    product.save()
+    product = new Product()
+    # Send the message to edit this product
+    Commands.execute("src/app/views/home/layout/edit_product", product)

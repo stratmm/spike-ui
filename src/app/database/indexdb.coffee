@@ -17,6 +17,13 @@
         migrate: (transaction, next) ->
           store = transaction.db.createObjectStore('products', {keyPath: "id"})
           next()
+      },
+      {
+        version: 3,
+        migrate: (transaction, next) ->
+          store = transaction.db.createObjectStore('days_to_ship', {keyPath: "id"})
+          store.createIndex('daysIndex', 'days')
+          next()
       }
     ]
   }

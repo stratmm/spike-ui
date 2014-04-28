@@ -1,2 +1,9 @@
-%h2
-  = "Flow Layout here"
+.row
+  .col-md-12#controls
+    = "Controls loading..."
+.row
+  .col-md-12#tabs
+    = "Tabs loading..."
+.row
+  .col-md-12#form
+    = "Forms loading..."
