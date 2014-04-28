@@ -3,6 +3,7 @@ Marionette = require 'backbone.marionette'
 ControlsView = require './controls.coffee'
 FormAboutView = require './form_about.coffee'
 FormDeliveryView = require './form_delivery.coffee'
+FormDetailsView = require './form_details.coffee'
 TabsView = require './tabs.coffee'
 Commands = require "../../../requires/commands.coffee"
 
@@ -25,6 +26,7 @@ module.exports = Marionette.Layout.extend
   tab_constructors: {
      delivery: FormDeliveryView
      about: FormAboutView
+     details: FormDetailsView
      # tab: FormDeliveryView
      # tab: FormDeliveryView
   }

@@ -80,7 +80,7 @@
 
   window.templates['src/app/views/products/edit/form_about'] = function(context) {
     return (function() {
-      var $c, $e, $o;
+      var $c, $e, $o, product_type, _i, _len, _ref;
       $e = function(text, escape) {
         return ("" + text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/\//g, '&#47;').replace(/"/g, '&quot;');
       };
@@ -98,15 +98,17 @@
       };
       $o = [];
       $o.push("<form>\n  <div class='form-group'>\n    <label>");
-      $o.push("      " + $e($c("Product title")));
+      $o.push("      " + $e($c("What is your product called")));
       $o.push("    </label>\n    <input class='form-control' type='text' placeholder='Product title' value='" + ($c(this.model.get('title'))) + "' data-model-attribute='title'>\n  </div>\n  <div class='form-group'>\n    <label>");
-      $o.push("      " + $e($c("Tell your customers about what the experience entails")));
-      $o.push("    </label>\n    <textarea class='form-control' data-model-attribute='introduction'>");
-      $o.push("    " + $e($c(this.model.get('introduction'))));
-      $o.push("    </textarea>\n  </div>\n  <div class='form-group'>\n    <label>");
-      $o.push("      " + $e($c("Price")));
-      $o.push("    </label>\n    <input class='form-control' id='price' type='number' value='" + ($c(this.model.get('price'))) + "' data-model-attribute='price'>\n  </div>\n</form>");
-      return $o.join("\n").replace(/\s([\w-]+)='true'/mg, ' $1').replace(/\s([\w-]+)='false'/mg, '').replace(/\s(?:id|class)=(['"])(\1)/mg, "").replace(/[\s\n]*\u0091/mg, '').replace(/\u0092[\s\n]*/mg, '');
+      $o.push("      " + $e($c("It is assssss")));
+      $o.push("    </label>\n  </div>\n  <div class='row'>");
+      _ref = this.product_types.models;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        product_type = _ref[_i];
+        $o.push("    <div class='col-md-4 col-sm-6'>\n      <div class='product_type_thumbnail thumbnail' data-product-type='" + ($c(product_type.get('id'))) + "'>\n        <img src='http://fakeimg.pl/300x300/'>\n        <h5 class='product_type'>" + ($e($c(product_type.get('title')))) + "</h5>\n      </div>\n    </div>");
+      }
+      $o.push("  </div>\n</form>");
+      return $o.join("\n").replace(/\s([\w-]+)='true'/mg, ' $1').replace(/\s([\w-]+)='false'/mg, '').replace(/\s(?:id|class)=(['"])(\1)/mg, "");
     }).call(context);
   };
 
@@ -147,6 +149,44 @@
       }
       $o.push("    </select>\n  </div>\n</form>");
       return $o.join("\n").replace(/\s([\w-]+)='true'/mg, ' $1').replace(/\s([\w-]+)='false'/mg, '').replace(/\s(?:id|class)=(['"])(\1)/mg, "");
+    }).call(context);
+  };
+
+}).call(this);
+(function() {
+  if (window.templates == null) {
+    window.templates = {};
+  }
+
+  window.templates['src/app/views/products/edit/form_details'] = function(context) {
+    return (function() {
+      var $c, $e, $o;
+      $e = function(text, escape) {
+        return ("" + text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/\//g, '&#47;').replace(/"/g, '&quot;');
+      };
+      $c = function(text) {
+        switch (text) {
+          case null:
+          case void 0:
+            return '';
+          case true:
+          case false:
+            return '' + text;
+          default:
+            return text;
+        }
+      };
+      $o = [];
+      $o.push("<form>\n  <div class='form-group'>\n    <label>");
+      $o.push("      " + $e($c("Introduce in a sentence")));
+      $o.push("    </label>\n    <input class='form-control' type='text' value='" + ($c(this.model.get('sentence'))) + "' data-model-attribute='sentence'>\n  </div>\n  <div class='form-group'>\n    <label>");
+      $o.push("      " + $e($c("Tell your customers about what the experience entails")));
+      $o.push("    </label>\n    <textarea class='form-control' data-model-attribute='introduction'>");
+      $o.push("    " + $e($c(this.model.get('introduction'))));
+      $o.push("    </textarea>\n  </div>\n  <div class='form-group'>\n    <label>");
+      $o.push("      " + $e($c("Price")));
+      $o.push("    </label>\n    <input class='form-control' id='price' type='number' value='" + ($c(this.model.get('price'))) + "' data-model-attribute='price'>\n  </div>\n</form>");
+      return $o.join("\n").replace(/\s([\w-]+)='true'/mg, ' $1').replace(/\s([\w-]+)='false'/mg, '').replace(/\s(?:id|class)=(['"])(\1)/mg, "").replace(/[\s\n]*\u0091/mg, '').replace(/\u0092[\s\n]*/mg, '');
     }).call(context);
   };
 

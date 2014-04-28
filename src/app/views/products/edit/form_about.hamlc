@@ -1,14 +1,14 @@
 %form
   .form-group
     %label
-      = "Product title"
+      = "What is your product called"
     %input.form-control{:type => "text", :placeholder => "Product title", :value =>"#{@model.get('title')}", :data-model-attribute => "title"}
   .form-group
     %label
-      = "Tell your customers about what the experience entails"
-    %textarea.form-control{:data-model-attribute => "introduction"}
-      = @model.get('introduction')
-  .form-group
-    %label
-      = "Price"
-    %input.form-control#price{:type => "number", :value => "#{@model.get('price')}", :data-model-attribute => "price"}
+      = "It is assssss"
+  .row
+    - for product_type in @product_types.models
+      .col-sm-6.col-md-4
+        .thumbnail.product_type_thumbnail{:data-product-type => "#{product_type.get('id')}"}
+          %img{:src => "http://fakeimg.pl/300x300/"}
+          %h5.product_type= product_type.get('title')

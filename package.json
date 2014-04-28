@@ -25,7 +25,7 @@
     "bootstrap": "bootstrap",
     "jquery_pnotify": "jquery_pnotify",
     "backbone_indexeddb": {
-      "exports": "backbone_indexeddb",
+      "exports": "backbone_indexeddb"
     }
   },
   "browserify": {

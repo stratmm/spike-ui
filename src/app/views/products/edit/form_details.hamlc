@@ -1,0 +1,16 @@
+%form
+  .form-group
+    %label
+      = "Introduce in a sentence"
+    %input.form-control{:type => "text", :value =>"#{@model.get('sentence')}", :data-model-attribute => "sentence"}
+  .form-group
+    %label
+      = "Tell your customers about what the experience entails"
+    %textarea.form-control{:data-model-attribute => "introduction"}
+      = @model.get('introduction')
+  .form-group
+    %label
+      = "Price"
+    %input.form-control#price{:type => "number", :value => "#{@model.get('price')}", :data-model-attribute => "price"}
+
+

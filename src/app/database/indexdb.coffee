@@ -25,5 +25,11 @@
           store.createIndex('daysIndex', 'days')
           next()
       }
+      {
+        version: 4,
+        migrate: (transaction, next) ->
+          store = transaction.db.createObjectStore('product_types', {keyPath: "id"})
+          next()
+      }
     ]
   }
