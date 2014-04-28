@@ -15,6 +15,9 @@ module.exports = Marionette.ItemView.extend
       'model': @model
     }
 
+  ui:
+    tabs: '.nav-tabs li
+    '
   events:
     'click .nav-tabs li' : 'tabClicked'
 
@@ -30,3 +33,7 @@ module.exports = Marionette.ItemView.extend
     tab_name = tab.data('tab-name')
     console.log(tab_name)
     Commands.execute("src/app/views/products/edit/layout/show_tab", tab.data('tab-name'))
+
+    # Set who is the active tab
+    @ui.tabs.removeClass('active')
+    tab.addClass('active')
