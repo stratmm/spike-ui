@@ -5,7 +5,7 @@
     %input.form-control{:type => "text", :placeholder => "Product title", :value =>"#{@model.get('title')}", :data-model-attribute => "title"}
   .form-group
     %label
-      = "It is assssss"
+      = "It is a"
   .row
     - for product_type in @product_types.models
       .col-sm-6.col-md-4

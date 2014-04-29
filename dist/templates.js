@@ -100,7 +100,7 @@
       $o.push("<form>\n  <div class='form-group'>\n    <label>");
       $o.push("      " + $e($c("What is your product called")));
       $o.push("    </label>\n    <input class='form-control' type='text' placeholder='Product title' value='" + ($c(this.model.get('title'))) + "' data-model-attribute='title'>\n  </div>\n  <div class='form-group'>\n    <label>");
-      $o.push("      " + $e($c("It is assssss")));
+      $o.push("      " + $e($c("It is a")));
       $o.push("    </label>\n  </div>\n  <div class='row'>");
       _ref = this.product_types.models;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
