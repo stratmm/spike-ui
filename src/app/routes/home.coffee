@@ -3,6 +3,7 @@ Marionette = require 'backbone.marionette'
 ViewHome = require '../views/home/layout.coffee'
 DaysToShip = require '../models/days_to_ship.coffee'
 ProductType = require '../models/product_type'
+ExperienceType = require '../models/experience_type'
 
 module.exports = Marionette.AppRouter.extend
 
@@ -34,3 +35,6 @@ module.exports = Marionette.AppRouter.extend
     new ProductType(title: "Physical Product").save()
     new ProductType(title: "Subscription").save()
 
+    new ExperienceType(title: "Day out").save()
+    new ExperienceType(title: "Cooking lesson").save()
+    new ExperienceType(title: "Coding classes").save()

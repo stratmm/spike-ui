@@ -9,6 +9,14 @@
   .row
     - for product_type in @product_types.models
       .col-sm-6.col-md-4
-        .thumbnail.product_type_thumbnail{:data-product-type => "#{product_type.get('id')}"}
+        .thumbnail.product_type_thumbnail{:data-product-type => "#{product_type.get('id')}", :data-product-type-name => "#{product_type.get('title')}"}
           %img{:src => "http://fakeimg.pl/300x300/"}
           %h5.product_type= product_type.get('title')
+  - if @expierence_id == @model.get('product_type_id')
+    .form-group
+      %label
+        = "What type of experience it is?"
+      %select.form-control#experience_type{:data-model-attribute => "experience_type_id"}
+        - for type in @experience_types.models
+          %option.experience_type_option{:value => "#{type.get('id')}" }
+            = type.get('title')

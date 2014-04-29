@@ -24,11 +24,17 @@
           store = transaction.db.createObjectStore('days_to_ship', {keyPath: "id"})
           store.createIndex('daysIndex', 'days')
           next()
-      }
+      },
       {
         version: 4,
         migrate: (transaction, next) ->
           store = transaction.db.createObjectStore('product_types', {keyPath: "id"})
+          next()
+      },
+      {
+        version: 5,
+        migrate: (transaction, next) ->
+          store = transaction.db.createObjectStore('experience_types', {keyPath: "id"})
           next()
       }
     ]

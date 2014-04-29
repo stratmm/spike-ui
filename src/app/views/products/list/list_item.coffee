@@ -1,5 +1,6 @@
 Marionette = require 'backbone.marionette'
 Commands = require "../../../requires/commands.coffee"
+$ = require 'jquery'
 
 
 module.exports = Marionette.ItemView.extend
@@ -12,6 +13,7 @@ module.exports = Marionette.ItemView.extend
   initialize: ->
     console.log("views/products/list/list_item::initialize")
     @search_text = ""
+
 
   serializeData: ->
     return {
@@ -29,3 +31,6 @@ module.exports = Marionette.ItemView.extend
     event.stopPropagation()
     # Send the message to edit this product
     Commands.execute("src/app/views/home/layout/edit_product", @model)
+    $('.products-list-list-item').removeClass('active')
+    $(@el).addClass('active')
+

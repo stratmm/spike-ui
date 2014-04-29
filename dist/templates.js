@@ -80,7 +80,7 @@
 
   window.templates['src/app/views/products/edit/form_about'] = function(context) {
     return (function() {
-      var $c, $e, $o, product_type, _i, _len, _ref;
+      var $c, $e, $o, product_type, type, _i, _j, _len, _len1, _ref, _ref1;
       $e = function(text, escape) {
         return ("" + text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/\//g, '&#47;').replace(/"/g, '&quot;');
       };
@@ -105,9 +105,23 @@
       _ref = this.product_types.models;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         product_type = _ref[_i];
-        $o.push("    <div class='col-md-4 col-sm-6'>\n      <div class='product_type_thumbnail thumbnail' data-product-type='" + ($c(product_type.get('id'))) + "'>\n        <img src='http://fakeimg.pl/300x300/'>\n        <h5 class='product_type'>" + ($e($c(product_type.get('title')))) + "</h5>\n      </div>\n    </div>");
+        $o.push("    <div class='col-md-4 col-sm-6'>\n      <div class='product_type_thumbnail thumbnail' data-product-type='" + ($c(product_type.get('id'))) + "' data-product-type-name='" + ($c(product_type.get('title'))) + "'>\n        <img src='http://fakeimg.pl/300x300/'>\n        <h5 class='product_type'>" + ($e($c(product_type.get('title')))) + "</h5>\n      </div>\n    </div>");
       }
-      $o.push("  </div>\n</form>");
+      $o.push("  </div>");
+      if (this.expierence_id === this.model.get('product_type_id')) {
+        $o.push("  <div class='form-group'>\n    <label>");
+        $o.push("      " + $e($c("What type of experience it is?")));
+        $o.push("    </label>\n    <select class='form-control' id='experience_type' data-model-attribute='experience_type_id'>");
+        _ref1 = this.experience_types.models;
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          type = _ref1[_j];
+          $o.push("      <option class='experience_type_option' value='" + ($c(type.get('id'))) + "'>");
+          $o.push("        " + $e($c(type.get('title'))));
+          $o.push("      </option>");
+        }
+        $o.push("    </select>\n  </div>");
+      }
+      $o.push("</form>");
       return $o.join("\n").replace(/\s([\w-]+)='true'/mg, ' $1').replace(/\s([\w-]+)='false'/mg, '').replace(/\s(?:id|class)=(['"])(\1)/mg, "");
     }).call(context);
   };
